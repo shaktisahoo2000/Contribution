@@ -1,0 +1,53 @@
+# Prometheus Configuration File
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "alert_rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Node Exporter for system metrics
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  # cAdvisor for container metrics
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  # Example: Monitor a web application
+  - job_name: 'webapp'
+    static_configs:
+      - targets: ['webapp:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Example: Monitor multiple instances with service discovery
+  - job_name: 'microservices'
+    static_configs:
+      - targets: 
+        - 'service1:8001'
+        - 'service2:8002'
+        - 'service3:8003'
+    scrape_interval: 10s
+
+# Remote write configuration (for long-term storage)
+# remote_write:
+#   - url: "http://remote-storage:9201/write"
+
+# Remote read configuration
+# remote_read:
+#   - url: "http://remote-storage:9201/read"
