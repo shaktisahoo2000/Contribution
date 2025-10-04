@@ -14,6 +14,7 @@
   
 | Name | Github Link |
 | ------|----------|
+| J Dipayan Rao | <a href="https://github.com/mrstrange2003">mrstrange2003</a> |
 | HarshwardhanPatil07 | <a href="github.com/HarshwardhanPatil07">Harshwardhan Patil</a> |
 | gauravbhaskar080 | <a href="https://github.com/gauravbhaskar080">Gaurav Bhaskar</a> |
 | Pisin2020 | <a href="github.com/Pisin2020">Pisin</a> |
