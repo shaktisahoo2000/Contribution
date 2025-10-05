@@ -1,8 +1,6 @@
 
-//GITHUB NAME : sharyupatil01
-// Aim : added basis pattern in Java 
-// Date : 5/10/2025 
-public class Pattern{
+public class Pattern1 {
+
     public static void main(String args[])
     {
         // *****
