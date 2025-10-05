@@ -191,75 +191,11 @@ class Factorial {
       }
       sequence.push(factorial);
     }
-    
-    return sequence;
-  }
-}
-
-// Extended class for advanced factorial operations
-class AdvancedFactorial extends Factorial {
-  constructor(n) {
-    super(n);
-  }
-
-  // Calculate binomial coefficient (n choose k)
-  binomialCoefficient(k) {
-    if (k < 0 || k > this.n) return 0;
-    if (k === 0 || k === this.n) return 1;
-    
-    // Use the property: C(n, k) = C(n, n-k)
-    k = Math.min(k, this.n - k);
-    
-    let result = 1;
-    for (let i = 1; i <= k; i++) {
-      result = result * (this.n - k + i) / i;
-    }
-    
-    return Math.round(result); // Round to handle floating point precision
-  }
-
-  // Calculate gamma function approximation (extension of factorial to real numbers)
-  gammaFunction() {
-    if (this.n <= 0 && Number.isInteger(this.n)) {
-      throw new Error('Gamma function undefined for negative integers');
-    }
-    
-    // Lanczos approximation
-    const z = this.n;
-    const p = [
-      676.5203681218851,
-      -1259.1392167224028,
-      771.32342877765313,
-      -176.61502916214059,
-      12.507343278686905,
-      -0.13857109526572012,
-      9.9843695780195716e-6,
-      1.5056327351493116e-7
-    ];
-    
-    if (z < 0.5) {
-      return Math.PI / (Math.sin(Math.PI * z) * this.gammaFunction(1 - z));
-    }
-    
-    z -= 1;
-    let x = 0.99999999999980993;
-    
-    for (let i = 0; i < p.length; i++) {
-      x += p[i] / (z + i + 1);
-    }
-    
-    const t = z + p.length - 0.5;
-    return Math.sqrt(2 * Math.PI) * Math.pow(t, z + 0.5) * Math.exp(-t) * x;
-  }
-
-  // Calculate multifactorial (n!^(m))
-  multiFactorial(m) {
-    if (m <= 0) throw new Error('Multi factorials require positive step size');
-    if (this.n < 0) throw new Error('Multi factorial not defined for negative numbers');
-    
-    let result = 1;
-    for (let i = this.n; i > 0; i -= m) {
-      result *= i;
+  
+    _factorial(num) {
+      if (num ==0 || num==1) 
+          return 1;
+      return num * this._factorial(num - 1);
     }
     return result;
   }
@@ -271,42 +207,6 @@ function demonstrateFactorial() {
 
   // Basic usage
   const number = 5;
-  const factorial = new Factorial(number);
-
-  console.log(`Basic factorial of ${number}:`);
-  console.log(`Iterative: ${factorial.calculate('iterative')}`);
-  console.log(`Recursive: ${factorial.calculate('recursive')}`);
-  console.log(`Memoized: ${factorial.calculate('memoized')}`);
-  console.log(`Using reduce: ${factorial.calculate('reduce')}`);
-  console.log(`Double factorial: ${factorial.doubleFactorial()}`);
-  console.log(`Stirling approximation: ${factorial.stirlingApproximation()}`);
-  console.log(`Trailing zeros: ${factorial.trailingZeros()}\n`);
-
-  // Large number with BigInt
-  const largeFactorial = new Factorial(25);
-  console.log(`Factorial of 25 (using BigInt): ${largeFactorial.calculate('bigint')}\n`);
-
-  // Static method usage
-  console.log('Static method examples:');
-  console.log(`Factorial of 6: ${Factorial.compute(6)}`);
-  console.log(`Is 120 a factorial? ${Factorial.isFactorial(120)}`);
-  console.log(`Factorial sequence up to 5: ${Factorial.generateSequence(5)}\n`);
-
-  // Advanced operations
-  const advanced = new AdvancedFactorial(10);
-  console.log('Advanced operations:');
-  console.log(`Binomial coefficient C(10, 3): ${advanced.binomialCoefficient(3)}`);
-  console.log(`Multi factorial 10!!!: ${advanced.multiFactorial(3)}\n`);
-
-  // Statistics
-  console.log('Calculation statistics:');
-  console.log(factorial.getStats());
-}
-
-// Run demonstration
-demonstrateFactorial();
-
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { Factorial, AdvancedFactorial };
-}
+  const factorialObj = new Factorial(number);
+  console.log(`Factorial of ${number} is: ${factorialObj.calculate()}`);
+  
